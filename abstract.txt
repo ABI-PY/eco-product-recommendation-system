@@ -1,0 +1,3 @@
+This project analyzes product sustainability using verified environmental indicators
+such as carbon footprint, recyclability, and eco-material usage. It avoids greenwashing
+by providing transparent scoring and comparisons, helping users make eco-friendly decisions.
