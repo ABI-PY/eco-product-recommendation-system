@@ -1,0 +1,13 @@
+Modules:
+1. Login Authentication
+2. Product Analysis
+3. Eco Score Calculation
+4. Graph Visualization
+5. History Tracking
+6. Secure Logout
+
+Technologies:
+Python, Flask, SQLite, HTML, CSS, JavaScript
+
+Outcome:
+Reduces greenwashing and promotes sustainable consumer awareness.

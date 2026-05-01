@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>History</title>
+
+<style>
+/* ---------- RESET ---------- */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Tahoma, sans-serif;
+    color: black; /* ALL text black */
+}
+
+
+/* ---------- PAGE BACKGROUND ---------- */
+body{
+    min-height:100vh;
+    background: url('/static/bg.jfif') no-repeat center center fixed; /* background image from static folder */
+    background-size: cover; /* make sure it covers the screen */
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+}
+
+/* ---------- GLASS CONTAINER ---------- */
+.container{
+    width:100%;
+    max-width:1100px;
+    padding:30px;
+
+    background: rgba(255,255,255,0.5); /* lighter glass */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border-radius:18px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.25);
+    color: black;
+}
+
+
+/* ---------- TITLE ---------- */
+.container h2{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+/* ---------- TABLE ---------- */
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:25px;
+}
+
+th, td{
+    padding:12px;
+    text-align:center;
+}
+
+th{
+    background: rgba(17, 240, 36, 0.7);
+    color: black;
+    border-radius:8px;
+    font-weight:600;
+}
+
+
+tr:nth-child(even){
+    background: rgba(26, 177, 48, 0.35);
+}
+
+tr:hover{
+    background: rgba(66, 180, 21, 0.5);
+}
+
+/* ---------- LINKS ---------- */
+a{
+    color: black;
+    font-weight:600;
+    text-decoration:none;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+/* ---------- BACK BUTTON ---------- */
+.back-btn{
+    display:block;
+    margin:0 auto;
+    width:200px;
+    text-align:center;
+    padding:12px;
+    border-radius:25px;
+    background:#2ecc71;
+    color:black;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>📜 History</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>URL</th>
+            <th>Carbon</th>
+            <th>Recycle</th>
+            <th>Material</th>
+            <th>Date</th>
+        </tr>
+
+        {% for row in history %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[2] }}</td>
+            <td><a href="{{ row[1] }}" target="_blank">Link</a></td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+            <td>{{ row[5] }}</td>
+            <td>{{ row[6] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{{ url_for('dashboard') }}" class="back-btn">
+        ⬅ Back to Home
+    </a>
+</div>
+
+</body>
+</html>

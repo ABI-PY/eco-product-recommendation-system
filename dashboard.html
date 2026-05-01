@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard - Eco Assistant</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Tahoma, sans-serif;
+}
+
+/* ---------- BACKGROUND ---------- */
+body{
+    min-height:100vh;
+    background: url("{{ url_for('static', filename='bg.jfif') }}") no-repeat center center fixed;
+    background-size: cover;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    position: relative;
+}
+
+/* ---------- CONTAINER ---------- */
+.container{
+    max-width:1100px;
+    width:100%;
+    margin:40px auto;
+    padding:30px;
+    position: relative;
+    z-index: 10;
+}
+
+/* ---------- HEADER ---------- */
+.header{
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    padding: 25px;
+    color: black;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+/* ---------- GRID ---------- */
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    margin-top:30px;
+}
+
+/* ---------- GLASS CARD ---------- */
+.card{
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+    padding: 25px;
+    color: black;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transition: transform 0.3s;
+}
+
+.card:hover{
+    transform: translateY(-6px);
+}
+
+/* ---------- INPUT ---------- */
+input[type=url]{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+}
+
+/* ---------- BUTTON ---------- */
+button{
+    margin-top:15px;
+    background:#2ecc71;
+    color:#1e1e1e;
+    border:none;
+    padding:12px 20px;
+    border-radius:20px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+    position: relative;
+    z-index: 20;
+}
+
+button:hover{
+    background:#27ae60;
+    transform:scale(1.05);
+}
+
+/* ---------- LINK BUTTON ---------- */
+.btn-link{
+    display:inline-block;
+    margin-top:15px;
+    background:#2ecc71;
+    color:#1e1e1e;
+    padding:12px 20px;
+    border-radius:20px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.btn-link:hover{
+    background:#27ae60;
+    transform:scale(1.05);
+}
+
+/* ---------- LOGOUT ---------- */
+.logout-btn{
+    background:#e74c3c;
+    color:white;
+}
+
+.logout-btn:hover{
+    background:#c0392b;
+}
+
+/* ---------- TIP ---------- */
+.tip{
+    margin-top:30px;
+    background:rgba(255,255,255,0.25);
+    backdrop-filter:blur(8px);
+    padding:18px;
+    border-radius:16px;
+    color:white;
+    font-weight:600;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+    margin-top:40px;
+    text-align:center;
+    color:#f1f1f1;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h2>👨‍💻 ADMIN Page</h2>
+        <p>Welcome To Eco-Friendly Shopping Assistant</p>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard-grid">
+
+        <!-- ANALYZE -->
+        <div class="card">
+            <h3>🔍 Analyze Single Product</h3>
+            <p>Analyze sustainability details from a product URL.</p>
+
+            <form action="{{ url_for('analyze') }}" method="POST">
+                <input type="url" name="url" placeholder="Enter Product URL" required>
+                <button type="submit">Analyze Product</button>
+            </form>
+        </div>
+
+        <!-- COMPARE -->
+        <div class="card">
+            <h3>🌴 GO TO GREEN</h3>
+            <p>Compare two products easily</p>
+
+            <form method="POST" action="{{ url_for('compare') }}">
+                <input type="url" name="url1" placeholder="Product URL 1" required>
+                <input type="url" name="url2" placeholder="Product URL 2" required>
+                <button type="submit">Compare Products</button>
+            </form>
+        </div>
+
+        <!-- HISTORY -->
+        <div class="card">
+            <h3>📊 Search History</h3>
+            <p>View your previously analyzed products.</p>
+
+            <a href="{{ url_for('history') }}" class="btn-link">
+                View History
+            </a>
+        </div>
+
+    </div>
+
+    <!-- TIP -->
+    <div class="tip">
+        💡 Tip: Choose products with lower carbon footprint and higher recyclability.
+    </div>
+
+    <!-- LOGOUT -->
+    <div style="text-align:center; margin-top:30px;">
+        <a href="{{ url_for('logout') }}" class="btn-link logout-btn">
+            Logout & Exit
+        </a>
+    </div>
+
+    <footer>
+        Eco Shopping Assistant • Transparency Over Greenwashing
+    </footer>
+
+</div>
+
+</body>
+</html>

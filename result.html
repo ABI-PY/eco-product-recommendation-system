@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Analysis Result</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* Page Centering */
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* -------- PAGE BACKGROUND -------- */
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+        linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+        url('/static/bg.jfif') no-repeat center center fixed;
+    background-size:cover;
+}
+
+/* Glass Result Box */
+.result-box {
+    width: 500px;
+    padding: 30px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    color: #fff;
+}
+
+/* Headings */
+.result-box h2 {
+    margin-bottom: 15px;
+    font-size: 26px;
+}
+
+/* Info Text */
+.result-box p {
+    margin: 8px 0;
+    font-size: 15px;
+}
+
+.result-box a {
+    color: #9fffd0;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+/* Chart Spacing */
+.chart-area {
+    margin: 25px 0;
+}
+
+/* Back Button */
+.back-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 24px;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 25px;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: rgba(0, 0, 0, 0.65);
+}
+</style>
+</head>
+
+<body>
+
+<div class="result-box">
+    <h2>🌱 Product Sustainability Analysis</h2>
+
+    <p><strong>Product:</strong> {{ name }}</p>
+    <p>
+        <strong>URL:</strong><br>
+        <a href="{{ url }}" target="_blank">{{ url }}</a>
+    </p>
+
+    <div class="chart-area">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <p style="font-size:13px; opacity:0.85;">
+        Higher scores indicate better sustainability performance.
+    </p>
+
+    <a href="{{ url_for('dashboard') }}" class="back-btn">⬅ Back to Dashboard</a>
+</div>
+
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Carbon', 'Recycle', 'Material'],
+        datasets: [{
+            label: 'Sustainability Score',
+            data: [{{ carbon }}, {{ recycle }}, {{ material }}],
+            backgroundColor: [
+                'rgba(76, 175, 80, 0.8)',
+                'rgba(255, 152, 0, 0.8)',
+                'rgba(33, 150, 243, 0.8)'
+            ],
+            borderRadius: 8
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 10
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Compare Products | Eco Assistant</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* ---------- RESET ---------- */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Tahoma, sans-serif;
+}
+
+/* ---------- PAGE BACKGROUND ---------- */
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+        linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+        url('/static/bg.jfif') no-repeat center center fixed;
+    background-size:cover;
+}
+
+/* ---------- MAIN GLASS BOX ---------- */
+.compare-box{
+    width:720px;
+    padding:35px;
+    border-radius:20px;
+
+    background: rgba(210, 228, 203, 0.45); /* light glass */
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    text-align:center;
+    color:black;
+}
+
+/* ---------- TITLE ---------- */
+.compare-box h2{
+    font-size:28px;
+    margin-bottom:25px;
+}
+
+/* ---------- PRODUCT NAMES ---------- */
+.product-names{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.product{
+    width:48%;
+    padding:15px;
+    border-radius:14px;
+    background: rgba(46,204,113,0.25); /* light green */
+    font-weight:600;
+}
+
+.product a{
+    display:block;
+    margin-top:6px;
+    font-size:13px;
+    color:black;
+    word-break:break-all;
+    text-decoration:none;
+}
+
+.product a:hover{
+    text-decoration:underline;
+}
+
+/* ---------- CHART ---------- */
+.chart-container{
+    width:100%;
+    margin-bottom:30px;
+}
+
+/* ---------- BACK BUTTON ---------- */
+.back-btn{
+    display:inline-block;
+    padding:12px 30px;
+    border-radius:25px;
+    background:#2ecc71;
+    color:black;
+    font-weight:bold;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:#27ae60;
+    transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<div class="compare-box">
+
+    <h2>🌱 Product Sustainability Comparison</h2>
+
+    <div class="product-names">
+        <div class="product">
+            {{ name1 }}
+            <a href="{{ url1 }}" target="_blank">{{ url1 }}</a>
+        </div>
+
+        <div class="product">
+            {{ name2 }}
+            <a href="{{ url2 }}" target="_blank">{{ url2 }}</a>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="compareChart"></canvas>
+    </div>
+
+    <a href="{{ url_for('dashboard') }}" class="back-btn">
+        ⬅ Back to Dashboard
+    </a>
+
+</div>
+
+<script>
+const ctx = document.getElementById('compareChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Carbon Impact', 'Recyclability', 'Material Score'],
+        datasets: [
+            {
+                label: '{{ name1 }}',
+                data: [{{ carbon1 }}, {{ recycle1 }}, {{ material1 }}],
+                backgroundColor: 'rgba(46, 204, 113, 0.8)',
+                borderRadius: 10
+            },
+            {
+                label: '{{ name2 }}',
+                data: [{{ carbon2 }}, {{ recycle2 }}, {{ material2 }}],
+                backgroundColor: 'rgba(52, 152, 219, 0.8)',
+                borderRadius: 10
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 10,
+                ticks: { color: 'black' }
+            },
+            x: {
+                ticks: { color: 'black' }
+            }
+        },
+        plugins:{
+            legend:{
+                labels:{ color:'black' }
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>
